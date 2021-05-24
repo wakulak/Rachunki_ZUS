@@ -8,18 +8,18 @@ GKM=("GKM","GKM ")
 KMN=("KMN", "KMN ")
 KM=("KM ", "KM ")
 
-
+bydgoszcz=("Bydgoszcz","92 10205590 0000 0302 9040 0010","0010")
+koszalin=("Koszalin","90 10205590 0000 0502 9130 0011", "0011")
+jaslo=("Jasło","73 10205590 0000 0302 9110 0013", "0013")
+zielona=("Zielona Góra", "66 10205590 0000 0602 9420 0015", "0015")
+elblag=("Elbląg","69 10205590 0000 0202 9080 0016", "0016")
+czestochowa=("Częstochowa","12 10205590 0000 0102 9070 0017","0017")
+chrzanow=("Chrzanów","52 10205590 0000 0002 9060 0018", "0018")
+radom=("Radom", "33 10205590 0000 0602 9270 0019", "0019")
     
 def main():
 
-      bydgoszcz=("Bydgoszcz","92 10205590 0000 0302 9040 0010","0010")
-      koszalin=("Koszalin","90 10205590 0000 0502 9130 0011", "0011")
-      jaslo=("Jasło","73 10205590 0000 0302 9110 0013", "0013")
-      zielona=("Zielona Góra", "66 10205590 0000 0602 9420 0015", "0015")
-      elblag=("Elbląg","69 10205590 0000 0202 9080 0016", "0016")
-      czestochowa=("Częstochowa","12 10205590 0000 0102 9070 0017","0017")
-      chrzanow=("Chrzanów","52 10205590 0000 0002 9060 0018", "0018")
-      radom=("Radom", "33 10205590 0000 0602 9270 0019", "0019")
+
 
  
       
@@ -131,6 +131,8 @@ def zus(miasto):
                 licznik=licznik+1
             else:
                 break
+
+
       if licznik>=1:
         sortowanie (lista_spraw, GKM, KMN, KM,lista_GKM, lista_KMN, lista_KM)      
         print("\nSuma rachunków z ZUS", miasto[0], "=",licznik*cena, "złotych, tj.", licznik, "x", cena, "zł",)
@@ -149,7 +151,8 @@ def suma_all():
             if cell.value[57:61] == "0010" or "0011" or "0013" or "0015" or "0016" or "0017" or "0018" or "0019":
                 licznik+=1
             suma=+licznik*cena
-    print("\n\nSuma wszystkich rachunków wynosi:", suma, "zl, tj.", licznik, "x", cena, "zł")
+    print("Suma wszystkich rachunków wynosi:", suma, "zl, tj.", licznik, "x", cena, "zł")
+
 
 def zamiana(rep,rep1,rep2):
     wiersz=1
