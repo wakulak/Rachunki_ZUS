@@ -18,27 +18,25 @@ radom = ("Radom", "33 10205590 0000 0602 9270 0019", "0019")
 
 
 def main():
-    lista_testowa=['GKM0001/19', 'GKM0005/20', 'GKM0007/20', 'GKM0008/20', 'GKM0009/20','GKM 8596/21']
 
     zus(bydgoszcz)
-    # zus(koszalin)
-    # zus(jaslo)
-    # zus(zielona)
-    # zus(elblag)
-    # zus(czestochowa)
-    # zus(chrzanow)
-    # zus(radom)
-    # if suma_all() != 0:
-    #     print("\nSuma wszystkich rachunków pobranych z pliku = %.2f złotych" % suma_all())
-    # else:
-    #     print("\nBrak rachunków w pliku albo pliku nie można otworzyć")
-    # zamiana()
-    # wb.save("rachunki.xlsx")
-    tytul_przelewu(lista_testowa)
+    zus(koszalin)
+    zus(jaslo)
+    zus(zielona)
+    zus(elblag)
+    zus(czestochowa)
+    zus(chrzanow)
+    zus(radom)
+    if suma_all() != 0:
+        print("\nSuma wszystkich rachunków pobranych z pliku = %.2f złotych" % suma_all())
+    else:
+        print("\nBrak rachunków w pliku albo pliku nie można otworzyć")
+    zamiana()
+    wb.save("rachunki.xlsx")
 
 
-def lista_spraw(miasto):        #Pobiera do lista_all wszyskie sprawy z pliku wystawione
-                                #przez wskazany ZUS w argumencie (miasto)
+def lista_spraw(miasto):  # Pobiera do lista_all wszyskie sprawy z pliku wystawione
+    # przez wskazany ZUS w argumencie (miasto)
     wiersz = 1
     lista_all = []
 
@@ -52,14 +50,14 @@ def lista_spraw(miasto):        #Pobiera do lista_all wszyskie sprawy z pliku wy
     return lista_all
 
 
-def zam_na_10(lista):           #Argument to lista_spraw(miasto), zwraca nieposegregowaną listę spraw z danego
-                                #ZUS-u, z sygnaturami w formacie np GKM0001/21, lub KM 0001/21
+def zam_na_10(lista):  # Argument to lista_spraw(miasto), zwraca nieposegregowaną listę spraw z danego
+    # ZUS-u, z sygnaturami w formacie np GKM0001/21, lub KM 0001/21
     lista_10 = []
 
     for i in lista:
         if (i[0:3]) == rep[0] or (i[0:3]) == rep[2]:
             liczba_zer = 11 - len(i)
-            liczba_zer_str = "0" * (liczba_zer)
+            liczba_zer_str = "0" * liczba_zer
             x = 4 - len(i)
             i = i[0:3] + liczba_zer_str + i[x:]
             lista_10.append(i)
@@ -75,11 +73,11 @@ def zam_na_10(lista):           #Argument to lista_spraw(miasto), zwraca niepose
     return lista_10
 
 
-def sortowanie(lista, repertorium,):   #Pierwszy argument (zam_na_10(lista_spraw(miasto))),
-                            #drugi argument to jedno z repertorium (GKM,KMN,KM, albo rep[0],rep[2],rep[4]),
-                            #wychodzi lista posegregowanych rosnąco spraw
-                            #wskazanego jako argument repertorium
-                            #format:  GKM0001/21, GKM0002/21
+def sortowanie(lista, repertorium, ):  # Pierwszy argument (zam_na_10(lista_spraw(miasto))),
+    # drugi argument to jedno z repertorium (GKM,KMN,KM, albo rep[0],rep[2],rep[4]),
+    # wychodzi lista posegregowanych rosnąco spraw
+    # wskazanego jako argument repertorium
+    # format:  GKM0001/21, GKM0002/21
     tablica = [[0 for col in range(10000)] for row in range(30)]
 
     if repertorium == "KM":
@@ -95,27 +93,27 @@ def sortowanie(lista, repertorium,):   #Pierwszy argument (zam_na_10(lista_spraw
             print("Błąd nr 1 w sortowanie")
 
     for j in range(0, 30):
-        while (0) in tablica[j]:
-            tablica[j].remove(0)  ##usuwa z listy zagnieżdżonnej elementy [0]
+        while 0 in tablica[j]:
+            tablica[j].remove(0)  # usuwa z listy zagnieżdżonnej elementy [0]
     while ([]) in tablica:
-        tablica.remove([])  ##usuwa puste listy zanieżdżone
+        tablica.remove([])  # usuwa puste listy zanieżdżone
     if len(tablica) >= 2:
         while len(tablica) != 1:
-            tablica[0] = tablica[0] + tablica[1]  ##łączy listy zagnieżdżone (pozostają dwie listy zagnieżdżone)
-            del tablica[1]  ## ksuje niepotrzebą listę zagnieżdżoną,
-    if tablica == []:
+            tablica[0] = tablica[0] + tablica[1]  # łączy listy zagnieżdżone (pozostają dwie listy zagnieżdżone)
+            del tablica[1]  # ksuje niepotrzebą listę zagnieżdżoną,
+    if not tablica:
         return tablica
     else:
         return tablica[0]
 
 
-def zamiana_10_na_syg(lista):   #Argument to lista
-                                #(sortowanie(zam_na_10(lista_spraw(miasto)),repertorium))
-                                #wyjście to posegregowana lista spraw z danego repertorium i danego ZUS-u
-                                #sygnarury spraw w formacie GKM 1/21, GKM 1999/18, KM 1/19, KMN 123/20
+def zamiana_10_na_syg(lista):  # Argument to lista
+    # (sortowanie(zam_na_10(lista_spraw(miasto)),repertorium))
+    # wyjście to posegregowana lista spraw z danego repertorium i danego ZUS-u
+    # sygnarury spraw w formacie GKM 1/21, GKM 1999/18, KM 1/19, KMN 123/20
     lista_syg = []
 
-    for i in (lista):
+    for i in lista:
         rok_int = int(i[-2:])
         sygn_int = int(i[3:7])
         rok_str = str(rok_int)
@@ -127,43 +125,8 @@ def zamiana_10_na_syg(lista):   #Argument to lista
         lista_syg.append(i)
     return lista_syg
 
-def tytul_przelewu(lista):
-    sygn_model="XXX0000/00"
-    lista_przel=[]
-    a=""
-    for i in lista:
-        rok_int = int(i[-2:])
-        sygn_int = int(i[3:7])
-        rok_str = str(rok_int)
-        sygn_str = str(sygn_int)
-        print ("Test f tytul_przelewu")
-        print(sygn_int)
-        print(int(sygn_model[3:7]))
-        print(sygn_int - int(sygn_model[3:7]))
-        if rok_int==int(sygn_model[-2:]) and sygn_int-int(sygn_model[3:7])==1:
-            pierwsza=sygn_model # coś podziałać
 
-            print ("Warunek = true")
-            a=i
-            i= i[0:3] + " " + str(int(sygn_model[3:7]))+ "-" + sygn_str + "/" + rok_str #nie działa jeżeli są więcej niż
-                                                                    #dwie sąsiadujące sygnatury - wpisuje tylko dwie ostatnie
-                                                                    #a wcześniejsze nie są dodawna do listy
-            lista_przel[-1]=(i)
-            print(i)
-        else:
-            if (i[0:3]) == rep[4]:
-                a=i
-                i = i[0:3] + sygn_str + "/" + rok_str
-                lista_przel.append(i)
-            elif i[0:3] == rep[0] or rep[2]:
-                a=i
-                i = i[0:3] + " " + sygn_str + "/" + rok_str
-                lista_przel.append(i)
-        sygn_model=a
-        print (lista_przel)
-
-
-def suma_miasto(miasto):    #Zwraca koszt wszystkich rachunków wystawionych przez wskazany jako argument ZUS
+def suma_miasto(miasto):  # Zwraca koszt wszystkich rachunków wystawionych przez wskazany jako argument ZUS
     licznik = 0
     suma = 0
 
@@ -175,14 +138,14 @@ def suma_miasto(miasto):    #Zwraca koszt wszystkich rachunków wystawionych prz
     return suma
 
 
-def suma_all():     #Zwraca koszt wszystkich rachunków pobranych z pliku
+def suma_all():  # Zwraca koszt wszystkich rachunków pobranych z pliku
     licznik = 0
     suma = 0
 
     for row in sheet.iter_rows(min_row=2, min_col=3, max_col=3):
         for cell in row:
-            if cell.value[57:61] == bydgoszcz[2] or koszalin[2] or jaslo[2] or zielona[2] or elblag[2] or czestochowa[
-                2] or chrzanow[2] or radom[2]:
+            if cell.value[57:61] == bydgoszcz[2] or koszalin[2] or jaslo[2] or zielona[2]\
+                    or elblag[2] or czestochowa[2] or chrzanow[2] or radom[2]:
                 licznik += 1
                 suma = +licznik * cena
     return suma
@@ -210,19 +173,19 @@ def zamiana():
 def zus(miasto):
     print("\nZus %s, nr rachunku: %s" % (miasto[0], miasto[1]))
     print("\nRachunki do spraw z repertorium %s:" % rep[0])
-    if (zamiana_10_na_syg(sortowanie(zam_na_10(lista_spraw(miasto)), rep[0]))) == []:
+    if not (zamiana_10_na_syg(sortowanie(zam_na_10(lista_spraw(miasto)), rep[0]))):
         print("Brak rachunków")
     else:
         x = ", ".join((zamiana_10_na_syg(sortowanie(zam_na_10(lista_spraw(miasto)), rep[0]))))
         print(x)
     print("\nRachunki do spraw z repertorium %s:" % rep[4])
-    if (zamiana_10_na_syg(sortowanie(zam_na_10(lista_spraw(miasto)), rep[4]))) == []:
+    if not (zamiana_10_na_syg(sortowanie(zam_na_10(lista_spraw(miasto)), rep[4]))):
         print("Brak rachunków")
     else:
         x = ", ".join((zamiana_10_na_syg(sortowanie(zam_na_10(lista_spraw(miasto)), rep[4]))))
         print(x)
     print("\nRachunki do spraw z repertorium %s:" % rep[2])
-    if (zamiana_10_na_syg(sortowanie(zam_na_10(lista_spraw(miasto)), rep[2]))) == []:
+    if not (zamiana_10_na_syg(sortowanie(zam_na_10(lista_spraw(miasto)), rep[2]))):
         print("Brak rachunków")
     else:
         x = ", ".join((zamiana_10_na_syg(sortowanie(zam_na_10(lista_spraw(miasto)), rep[2]))))
