@@ -150,7 +150,7 @@ def suma_all():
         for cell in row:
             if cell.value[57:61] == "0010" or "0011" or "0013" or "0015" or "0016" or "0017" or "0018" or "0019":
                 licznik+=1
-            suma=+licznik*cena
+                suma=+licznik*cena
     print("Suma wszystkich rachunków wynosi:", suma, "zl, tj.", licznik, "x", cena, "zł")
 
 
