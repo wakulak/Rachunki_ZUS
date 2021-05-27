@@ -195,6 +195,6 @@ def zus(miasto):
             miasto[0], suma_miasto(miasto), suma_miasto(miasto) / cena, cena))
     print("\n-----------------------------------------------------------------------")
 
-
+# usun ten komentarz
 if __name__ == "__main__":
     main()
