@@ -118,9 +118,9 @@ def zamiana_10_na_syg(lista):  # Argument to lista
         sygn_int = int(i[3:7])
         sygn_str = str(sygn_int)
         if (i[0:3]) == rep[4]:
-            i = i[0:3] + sygn_str + "/" + rok_int
+            i = "%s%s/%s" % (i[0:3], sygn_str, rok_int)
         elif i[0:3] == rep[0] or rep[2]:
-            i = i[0:3] + " " + sygn_str + "/" + rok_int
+            i = "%s %s/%s" % (i[0:3], sygn_str, rok_int)
         lista_syg.append(i)
     return lista_syg
 
