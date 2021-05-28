@@ -114,14 +114,13 @@ def zamiana_10_na_syg(lista):  # Argument to lista
     lista_syg = []
 
     for i in lista:
-        rok_int = int(i[-2:])
+        rok_int = (i[-2:])
         sygn_int = int(i[3:7])
-        rok_str = str(rok_int)
         sygn_str = str(sygn_int)
         if (i[0:3]) == rep[4]:
-            i = i[0:3] + sygn_str + "/" + rok_str
+            i = i[0:3] + sygn_str + "/" + rok_int
         elif i[0:3] == rep[0] or rep[2]:
-            i = i[0:3] + " " + sygn_str + "/" + rok_str
+            i = i[0:3] + " " + sygn_str + "/" + rok_int
         lista_syg.append(i)
     return lista_syg
 
@@ -195,6 +194,6 @@ def zus(miasto):
             miasto[0], suma_miasto(miasto), suma_miasto(miasto) / cena, cena))
     print("\n-----------------------------------------------------------------------")
 
-# usun ten komentarz
+
 if __name__ == "__main__":
     main()
