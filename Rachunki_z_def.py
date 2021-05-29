@@ -17,9 +17,9 @@ czestochowa = ("Częstochowa", "12 10205590 0000 0102 9070 0017", "0017")
 chrzanow = ("Chrzanów", "52 10205590 0000 0002 9060 0018", "0018")
 radom = ("Radom", "33 10205590 0000 0602 9270 0019", "0019")
 
-
+a=czestochowa # usunąć
 def main():
-    #zus(bydgoszcz)
+    # zus(bydgoszcz)
     # zus(koszalin)
     # zus(jaslo)
     # zus(zielona)
@@ -35,11 +35,18 @@ def main():
     zamiana()
     wb.save("rachunki.xlsx")
     file.close()
-    print(len(lista_spraw(bydgoszcz)))
-    print(len(zam_na_10(lista_spraw(bydgoszcz))))
-    print(len(sortowanie(zam_na_10(lista_spraw(bydgoszcz)),rep[0])))
-    print(len(sortowanie(zam_na_10(lista_spraw(bydgoszcz)), rep[2])))
-    print(len(sortowanie(zam_na_10(lista_spraw(bydgoszcz)), rep[5])))
+
+    # Poniże testy, do uzunięcia w final
+    print(lista_spraw(a))
+    #print(len(lista_spraw(a)))
+    #print(len(zam_na_10(lista_spraw(a))))
+    #print(len(sortowanie(zam_na_10(lista_spraw(a)),rep[0])))
+    print((sortowanie(zam_na_10(lista_spraw(a)), rep[0])))
+    #print(len(sortowanie(zam_na_10(lista_spraw(a)), rep[2])))
+    print (sortowanie(zam_na_10(lista_spraw(a)), rep[2]))
+    #print(len(sortowanie(zam_na_10(lista_spraw(a)), rep[5])))
+    print (sortowanie(zam_na_10(lista_spraw(a)), rep[5]))
+
 
 
 def lista_spraw(miasto):  # Pobiera do lista_all wszyskie sprawy z pliku wystawione
@@ -85,7 +92,8 @@ def sortowanie(lista, repertorium, ):  # Pierwszy argument (zam_na_10(lista_spra
     # wychodzi lista posegregowanych rosnąco spraw
     # wskazanego jako argument repertorium
     # format:  GKM0001/21, GKM0002/21
-    tablica = [[0 for col in range(10000)] for row in range(30)]
+    tablica = [[0 for col in range(10000)] for row in range(30)] # UWAGA giną podwójne sygnatury druga
+                                                                # zastępuje pierwszą
 
     if repertorium == "KM":
         repertorium = "KM "
