@@ -20,21 +20,22 @@ radom = ("Radom", "33 10205590 0000 0602 9270 0019", "0019")
 
 def main():
     zus(bydgoszcz)
-    zus(koszalin)
-    zus(jaslo)
-    zus(zielona)
-    zus(elblag)
-    zus(czestochowa)
-    zus(chrzanow)
-    zus(radom)
+    # zus(koszalin)
+    # zus(jaslo)
+    # zus(zielona)
+    # zus(elblag)
+    # zus(czestochowa)
+    # zus(chrzanow)
+    # zus(radom)
     if suma_all() != 0:
-        file.write("Suma wszystkich rachunków pobranych z pliku = %.2f złotych"
+        print("Suma wszystkich rachunków pobranych z pliku = %.2f złotych"
                    " (%i rachunków x %.2f złotych)" % (suma_all(), suma_all() / cena, cena))
     else:
-        file.write("Brak rachunków w pliku albo pliku nie można otworzyć")
+        print("Brak rachunków w pliku albo pliku nie można otworzyć")
     zamiana()
     wb.save("rachunki.xlsx")
     file.close()
+    print (zam_na_10(lista_spraw(bydgoszcz)))
 
 
 def lista_spraw(miasto):  # Pobiera do lista_all wszyskie sprawy z pliku wystawione
@@ -71,7 +72,7 @@ def zam_na_10(lista):  # Argument to lista_spraw(miasto), zwraca nieposegregowan
             i = i[0:3] + liczba_zer_str + i[x - 1:]
             lista_10.append(i)
         else:
-            file.write("Błąd nr 1 w zam_na_10")
+            print("Błąd nr 1 w zam_na_10")
     return lista_10
 
 
@@ -96,7 +97,7 @@ def sortowanie(lista, repertorium, ):  # Pierwszy argument (zam_na_10(lista_spra
         elif (i[0:3]) != repertorium:
             continue
         else:
-            file.write("Błąd nr 1 w sortowanie")
+            print("Błąd nr 1 w sortowanie")
 
     for j in lista_duble:  # dodawanie powielonych sygnatur do tablicy
         rok_int = int(j[-2:])
@@ -227,27 +228,28 @@ def zamiana():  # dopisuje do kolumnie 10 i 11 sygnarurę sprawy bez spacji
                 sheet.cell(row=wiersz, column=11).value = cell.value[3:]
                 sheet.cell(row=wiersz, column=10).value = rep[5]
             else:
-                file.write("\nBłąd nr 1 w def zamiana")
+                print("\nBłąd nr 1 w def zamiana")
 
 
 def zus(miasto):
-    file.write("Zus %s, nr rachunku: %s" % (miasto[0], miasto[1]))
-    for i in (rep[0], rep[4], rep[2]):
-        file.write("\n\nRachunki do spraw z repertorium %s:\n" % i)
-        if not (zamiana_10_na_syg(sortowanie(zam_na_10(lista_spraw(miasto)), i))):
-            file.write("Brak rachunków")
-        else:
-            x = ", ".join((zamiana_10_na_syg(sortowanie(zam_na_10(lista_spraw(miasto)), i))))
-            file.write(x)
-            y = ", ".join(tytul_przelewu(sortowanie(zam_na_10(lista_spraw(miasto)), i)))
-            file.write('\nProponowany tytuł przelewu:\n%s: %s' % (i, y))
-            file.write('\nKwota rachunków z repertorium %s = %.2f złotych, tj. %i x %.2f złotych'
-                       % (i, (len(zamiana_10_na_syg(sortowanie(zam_na_10(lista_spraw(miasto)), i))) * cena),
-                          len(zamiana_10_na_syg(sortowanie(zam_na_10(lista_spraw(miasto)), i))), cena))
-    if suma_miasto(miasto) != 0:
-        file.write("\n\nSuma rachunków z ZUS %s = %.2f złotych, tj. %.0f x %.2f zł" % (
+    if suma_miasto(miasto) !=0:
+        print("Zus %s, nr rachunku: %s" % (miasto[0], miasto[1]))
+        for i in (rep[0], rep[4], rep[2]):
+            print("\n\nRachunki do spraw z repertorium %s:\n" % i)
+            if not (zamiana_10_na_syg(sortowanie(zam_na_10(lista_spraw(miasto)), i))):
+                print("Brak rachunków")
+            else:
+                x = ", ".join((zamiana_10_na_syg(sortowanie(zam_na_10(lista_spraw(miasto)), i))))
+                print(x)
+                y = ", ".join(tytul_przelewu(sortowanie(zam_na_10(lista_spraw(miasto)), i)))
+                print('\nProponowany tytuł przelewu:\n%s: %s' % (i, y))
+                print('\nKwota rachunków z repertorium %s = %.2f złotych, tj. %i x %.2f złotych'
+                           % (i, (len(zamiana_10_na_syg(sortowanie(zam_na_10(lista_spraw(miasto)), i))) * cena),
+                              len(zamiana_10_na_syg(sortowanie(zam_na_10(lista_spraw(miasto)), i))), cena))
+
+        print("\n\nSuma rachunków z ZUS %s = %.2f złotych, tj. %.0f x %.2f zł" % (
             miasto[0], suma_miasto(miasto), suma_miasto(miasto) / cena, cena))
-    file.write("\n\n-----------------------------------------------------------------------\n\n")
+        print("\n\n-----------------------------------------------------------------------\n\n")
 
 
 if __name__ == "__main__":
