@@ -14,33 +14,37 @@ lista=['KM 0431/21', 'KM 0456/21', 'KM 0487/21', 'KM 0470/21', 'KM 0157/20', 'GK
        'KM 0748/19', 'KM 2817/18', 'KM 0388/21', 'KM 0410/21', 'KM 0370/21', 'KM 0401/21',
        'KM 0408/21', 'KM 0394/21', 'KM 0384/21', 'KM 0389/19', 'GKM0052/21', 'KM 0322/20']
 
-def sortowanie_new(lista):
+def sortowanie(lista, repertorium):
        lista_sort = []
+
+       if repertorium == "KM":
+              repertorium = "KM "
+
        for i in lista:
-              print ('i=',i)
-              rok_int = (i[-2:])
-              sygn_int = int(i[3:7])
-              if not lista_sort:
-                     lista_sort.append(i)
-              else:
-                     if (rok_int < (lista_sort[0][-2:]))\
-                             or (rok_int == (lista_sort[0][-2:]) and sygn_int <= int(lista_sort[0][3:7])):
-                            lista_sort.insert(0,i)
-                     elif (rok_int > (lista_sort[-1][-2:]))\
-                             or (rok_int == (lista_sort[-1][-2:]) and sygn_int >= int(lista_sort[-1][3:7])):
+              if (i[0:3]) == repertorium:
+                     rok_int = (i[-2:])
+                     sygn_int = int(i[3:7])
+                     if not lista_sort:
                             lista_sort.append(i)
                      else:
-                            licznik=0
-                            while rok_int> lista_sort[licznik][-2:] or (rok_int== lista_sort[licznik][-2:] and sygn_int>=int(lista_sort[licznik][3:7])):
-                                   licznik+=1
-                                   print ('dupa =',licznik)
+                            if (rok_int < (lista_sort[0][-2:]))\
+                                    or (rok_int == (lista_sort[0][-2:]) and sygn_int <= int(lista_sort[0][3:7])):
+                                   lista_sort.insert(0,i)
+                            elif (rok_int > (lista_sort[-1][-2:]))\
+                                    or (rok_int == (lista_sort[-1][-2:]) and sygn_int >= int(lista_sort[-1][3:7])):
+                                   lista_sort.append(i)
+                            else:
+                                   licznik=0
+                                   while rok_int> lista_sort[licznik][-2:] or (rok_int== lista_sort[licznik][-2:] and sygn_int>=int(lista_sort[licznik][3:7])):
+                                          licznik+=1
 
-                            lista_sort.insert(licznik,i)
+                                   lista_sort.insert(licznik,i)
+              else:
+                     continue
 
-              print (lista_sort)
-              #print (len(lista))
-              #print (len(lista_sort))
+       return lista_sort
+
 
 
               #and sygn_int - int(lista_tmp[-1][3:7]) == 1:
-sortowanie_new(lista)
+print (sortowanie_new(lista, 'KM'))
